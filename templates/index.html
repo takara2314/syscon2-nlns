@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ログ確認 | wherever by bicycle</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <style>
+        ::selection {
+	        background-color: rgba(0, 190, 240, 0.5);
+	        color: #000000;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgba(0, 0, 0, 0.05);
+            font-family: Meiryo, sans-serif;
+        }
+        h1 {
+            margin: 0;
+            padding: 0.25em 0.5em 0 0.5em;
+        }
+        .titleDiv {
+            margin: 1em;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 1em;
+        }
+        .titleDiv p {
+            margin: 0 0.5em 0 1.1em;
+        }
+        .deviceInfo {
+            color: gray;
+            font-weight: bold;
+        }
+        .deviceInfo::before {
+            content: "デバイスID：";
+            color: gray;
+            font-weight: normal;
+        }
+        .logDiv {
+            margin: 1em;
+            font-size: 1.25em;
+        }
+        .logDiv p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        .csvDiv {
+            padding: 0.5em;
+            background-color: white;
+            border-radius: 0.5em;
+            font-family: "Roboto Mono", monospace, Meiryo, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="titleDiv">
+        <h1>ログ確認システム</h1>
+        <p>
+            POSTされてきたJSONをまとめたログを確認できます。<br>
+            <font class="deviceInfo">{{deviceID}}</font>
+        </p>
+    </div>
+    <div class="logDiv">
+        <p>
+            {% if status == "OK" %}
+                <font style="color: green; font-weight: bold">正常に記録されています。</font>
+            {% elif status == "NoSuchDevice" %}
+                <font style="color: red; font-weight: bold">このデバイスは存在しません。他のデバイスで検索してみてください。</font>
+            {% else %}
+                <font style="color: gold; font-weight: bold">不明なエラーが発生しました。</font>
+            {% endif %}
+        </p>
+        {% if columns %}
+            <p style="font-size: 0.75em">
+                左から <font style="font-weight: bold">{{columns | safe}}</font>
+            </p>
+        {% endif %}
+        {% if logs %}
+            <div class="csvDiv">
+                {{logs | safe}}
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>
