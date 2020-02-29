@@ -7,7 +7,7 @@
  * 	sigfox-shield-arduino-master
  * 	Adafruit_Unified_Sensor
  * 	Adafruit_BME280_Library
- *  TinyGPSPlus
+ * 	TinyGPSPlus
  */
 
 
